@@ -115,13 +115,24 @@ set backup
 set backupdir=~/.vim/backup
 set directory=~/.vim/tmp
 au BufWritePre * let &bex = '-' . strftime("%Y%m%d-%H%M%S") . '.vimbackup'
+
+" Eclim Settings
+let g:EclimLocateFileScope = 'workspace'
+let g:EclimLocateFileFuzzy = 1
+let g:EclimProjectTabTreeAutoOpen = 1
+let g:EclimLocateFileDefaultAction = 'edit'
+
+" map leader
+" let mapleader = ','
+
 " }}}
 
 "{{{Look and Feel
 
 " Favorite Color Scheme
 if has("gui_running")
-   colorscheme inkpot
+   "inkpot
+   colorscheme metacosm
    " Remove Toolbar
    set guioptions-=T
    "Terminus is AWESOME
@@ -133,6 +144,9 @@ endif
 "Status line gnarliness
 set laststatus=2
 set statusline=%F%m%r%h%w\ (%{&ff}){%Y}\ [%l,%v][%p%%]
+
+"MacVim Font
+set guifont=Monaco:h14
 
 " }}}
 
@@ -277,6 +291,17 @@ nnoremap : ;
 nnoremap <leader>par :%s/^>$//<CR>
 
 "ly$O#{{{ "lpjjj_%A#}}}jjzajj
+
+" Eclim Mappings
+" Import the class under the cursor with <leader>i (:h mapleader):
+nnoremap <silent> <buffer> <Leader>jimp :JavaImport<cr>
+" Search for the javadocs of the element under the cursor with <Leader>d.
+nnoremap <silent> <buffer> <Leader>jdoc :JavaDocSearch -x declarations<cr>
+" Perform a context sensitive search of the element under the cursor with
+" <enter>.
+nnoremap <silent> <buffer> <cr> :JavaSearchContext<cr>
+" Open locatefile
+nnoremap <silent> <buffer> <Leader>N :LocateFile<cr>
 
 "}}}
 
