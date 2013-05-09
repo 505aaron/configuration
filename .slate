@@ -1,0 +1,135 @@
+# Configs
+config defaultToCurrentScreen true
+config nudgePercentOf screenSize
+config resizePercentOf screenSize
+config secondsBetweenRepeat 0.1
+config checkDefaultsOnLoad true
+config focusCheckWidthMax 3000
+config keyboardLayout dvorak
+config windowHintsShowIcons true
+config windowHintsIgnoreHiddenWindows false
+#config windowHintsDuration 5
+config windowHintsSpread true
+#config windowHintsOrder persist
+
+# Monitor Aliases
+alias mon-laptop      0
+alias mon-samsung    1
+
+# Misc Aliases
+alias showHintsLeftHand hint AOEUIYQJKX
+alias showNormalHint hint AOEUIDHTNSYXFBPKGMCW
+alias browser 'Google Chrome'
+alias editor 'MacVim'
+
+alias top-half     move screenOriginX;screenOriginY                             screenSizeX;screenSizeY/2
+alias bottom-half  move screenOriginX;screenOriginY+screenSizeY/2               screenSizeX;screenSizeY/2
+alias left-half    move screenOriginX;screenOriginY                             screenSizeX/2;screenSizeY
+alias right-half   move screenOriginX+screenSizeX/2;screenOriginY               screenSizeX/2;screenSizeY
+alias top-left     move screenOriginX;screenOriginY                             screenSizeX/2;screenSizeY/2
+alias top-right    move screenOriginX+screenSizeX/2;screenOriginY               screenSizeX/2;screenSizeY/2
+alias bottom-left  move screenOriginX;screenOriginY+screenSizeY/2               screenSizeX/2;screenSizeY/2
+alias bottom-right move screenOriginX+screenSizeX/2;screenOriginY+screenSizeY/2 screenSizeX/2;screenSizeY/2
+alias maximized    move screenOriginX;screenOriginY                             screenSizeX;screenSizeY
+
+# Concrete positions
+alias 1-top-half          ${top-half}        $(mon-laptop}
+alias 1-bottom-half       ${bottom-half}     $(mon-laptop}
+alias 1-left-half         ${left-half}       $(mon-laptop}
+alias 1-right-half        ${right-half}      $(mon-laptop}
+alias 1-top-left          ${top-left}        $(mon-laptop}
+alias 1-top-right         ${top-right}       $(mon-laptop}
+alias 1-bottom-left       ${bottom-left}     $(mon-laptop}
+alias 1-bottom-right      ${bottom-right}    $(mon-laptop}
+alias 1-maximized         ${maximized}       $(mon-laptop}
+
+alias 2-top-half          ${top-half}        ${mon-samsung}
+alias 2-bottom-half       ${bottom-half}     ${mon-samsung}
+alias 2-left-half         ${left-half}       ${mon-samsung}
+alias 2-right-half        ${right-half}      ${mon-samsung}
+alias 2-top-left          ${top-left}        ${mon-samsung}
+alias 2-top-right         ${top-right}       ${mon-samsung}
+alias 2-bottom-left       ${bottom-left}     ${mon-samsung}
+alias 2-bottom-right      ${bottom-right}    ${mon-samsung}
+alias 2-maximized         ${maximized}       ${mon-samsung}
+
+# 2 Monitor layout
+layout 2monitors 'iTerm':MAIN_FIRST                       ${2-left-half} | ${1-left-half}
+layout 2monitors 'Google Chrome':REPEAT                   ${2-left-half} | ${2-right-half} | ${1-maximized}
+layout 2monitors 'MacVim':REPEAT                          ${2-right-half}
+layout 2monitors 'Mail':MAIN_FIRST                        ${1-bottom-half}
+layout 2monitors 'iCal':MAIN_FIRST                        ${1-top-half}
+layout 2monitors 'Eclipse':REPEAT                         ${2-maximized}
+layout 2monitors 'iTunes':REPEAT                          ${1-maximized}
+layout 2monitors 'HipChat':REPEAT                         ${1-maximized} | ${2-maximized}
+
+# 1 Monitor layout
+layout 1monitor 'iTerm':MAIN_FIRST                       ${1-right-half}
+layout 1monitor 'Sublime Text 2':MAIN_FIRST              ${1-left-half}
+layout 1monitor 'MacVim':MAIN_FIRST                      ${1-left-half}
+layout 1monitor 'Google Chrome':REPEAT                   ${1-maximized}
+layout 1monitor 'Path Finder':MAIN_FIRST                 ${1-maximized}
+layout 1monitor 'Xcode':REPEAT                           ${1-maximized}
+layout 1monitor 'Eclipse':REPEAT                         ${1-maximized}
+layout 1monitor 'iTunes':REPEAT                          ${1-maximized}
+layout 2monitors 'Mail':MAIN_FIRST                       ${1-bottom-half}
+layout 2monitors 'iCal':MAIN_FIRST                       ${1-top-half}
+
+# Default Layouts
+default 2monitors resolutions:${mon-laptop};${mon-samsung};
+default 1monitor  resolutions:${mon-laptop}
+
+# Numpad location Bindings
+bind pad0 ${showHintsLeftHand}
+bind pad1 ${bottom-left}
+bind pad2 ${bottom-half}
+bind pad3 ${bottom-right}
+bind pad4 ${left-half}
+bind pad5 ${maximized}
+bind pad6 ${right-half}
+bind pad7 ${top-left}
+bind pad8 ${top-half}
+bind pad9 ${top-right}
+bind padEnter grid padding:5 ${mon-laptop}:6,2 ${mon-samsung}:8,3
+bind pad+ throw next
+bind pad. focus behind
+bind pad* layout 2monitors
+bind pad/ layout 1monitor
+
+# bind e:cmd  ${showNormalHint}
+
+# ======================================
+# The HYPER key
+# ======================================
+
+alias hyper ctrl;alt;cmd
+
+# Location bindings
+# bind w:${hyper} ${top-half}
+# bind x:${hyper} ${bottom-half}
+# bind a:${hyper} ${left-half}
+# bind d:${hyper} ${right-half}
+# bind q:${hyper} ${top-left}
+# bind e:${hyper} ${top-right}
+# bind z:${hyper} ${bottom-left}
+# bind c:${hyper} ${bottom-right}
+# bind s:${hyper} ${maximized}
+bind /:${hyper} layout 2monitors
+bind .:${hyper} layout 1monitor
+
+# Resize Bindings
+#bind r:${hyper} ${leftmost}
+#bind g:${hyper} ${rightmost}
+
+# Focus Bindings
+bind right:${hyper}    focus right
+bind left:${hyper}     focus left
+bind up:${hyper}       focus up
+bind down:${hyper}     focus down
+
+# App bindings
+bind e:${hyper} focus ${browser}
+bind u:${hyper} focus ${editor}
+bind m:${hyper} focus 'Mail'
+bind i:${hyper} focus 'iTerm'
+bind o:${hyper} focus 'Finder'
